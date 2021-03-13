@@ -7,6 +7,7 @@ import {
   ImageIcon,
   ListItemText,
   Modal,
+  Button,
 } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,13 +28,33 @@ const useStyles = makeStyles((theme) => ({
 const Todo = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [input, setInput] = useState();
+
+  const updateTodo = () => {
+    // update the todo the new input text
+
+    db.collection("todos").doc(props.todo.id).set(
+      {
+        todo: input,
+      },
+      { merge: true }
+    );
+    setOpen(false);
+  };
 
   return (
     <>
       <Modal open={open} onClose={(e) => setOpen(false)}>
-        <div>
+        <div className={classes.paper}>
           <h1>I am a model</h1>
-          <button onClick={(e) => setOpen(false)}></button>
+          <input
+            placeholder={props.todo.todo}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <Button variant="contained" color="primary" onClick={updateTodo}>
+            Update Todo
+          </Button>
         </div>
       </Modal>
       <List className="todo__list">
