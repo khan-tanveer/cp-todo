@@ -6,8 +6,11 @@ import {
   Avatar,
   ImageIcon,
   ListItemText,
+  Button,
 } from "@material-ui/core";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import "./Todo.css";
+import db from "./firebase";
 
 const Todo = (props) => {
   return (
@@ -18,8 +21,13 @@ const Todo = (props) => {
             <ImageIcon />
           </Avatar> */}
         </ListItemAvatar>
-        <ListItemText primary={props.text} secondary="Dummy deadline.." />
+        <ListItemText primary={props.todo.todo} secondary="Dummy deadline..." />
       </ListItem>
+      <DeleteForeverIcon
+        onClick={(e) => db.collection("todos").doc(props.todo.id).delete()}
+      >
+        Delete Me
+      </DeleteForeverIcon>
     </List>
     // <div>
     //   <li>{props.text}</li>
