@@ -52,9 +52,7 @@ const Todo = (props) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
-          <Button variant="contained" color="primary" onClick={updateTodo}>
-            Update Todo
-          </Button>
+          <Button onClick={updateTodo}>Update Todo</Button>
         </div>
       </Modal>
       <List className="todo__list">
